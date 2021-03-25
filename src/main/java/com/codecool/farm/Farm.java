@@ -1,7 +1,6 @@
 package com.codecool.farm;
 
 import com.codecool.farm.animal.Animal;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +19,13 @@ public class Farm {
     }
 
     public void butcher(Butcher butcher) {
-        for (Animal animal : animals) {
-            if (butcher.canButcher(animal)) {
-                animals.remove(animal);
+        for (int i = 0; i < animals.size(); i++) {
+            if (butcher.canButcher(animals.get(i))) {
+                animals.remove(i);
             }
         }
     }
+    //       animals.removeIf(butcher::canButcher);
 
     public boolean isEmpty() {
         if (animals.isEmpty()) {
@@ -39,7 +39,8 @@ public class Farm {
         for (Animal animal : animals) {
             animalStatus.addAll(Collections.singleton("There is a "
                     + animal.getSize()
-                    + " sized " + (animal.toString()) + " in the farm"));
+                    + " sized " + (animal.getClass().getSimpleName().toLowerCase())
+                    + " in the farm."));
         }
         return animalStatus;
     }
@@ -47,5 +48,10 @@ public class Farm {
 
     public List<Animal> getAnimals() {
         return animals;
+    }
+
+    @Override
+    public String toString() {
+        return "" + animals.toString();
     }
 }
